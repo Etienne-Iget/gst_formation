@@ -5,13 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>Gst</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+        <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="/fonts/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css">
+        <link rel="stylesheet" type="/text/css" href="font-awesome/css/font-awesome.min.css">  
+        <link rel="stylesheet" href="/css/flaticon.css">
+        <link rel="stylesheet" href="/css/style.css">
 
         @livewireStyles
 
@@ -45,18 +53,23 @@
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('cours')">
+                    <x-jet-nav-link href="{{ route('admin.modules') }}" :active="request()->routeIs('admin.modules')">
+                        {{ __('Modules') }}
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('admin.cours') }}" :active="request()->routeIs('admin.cours')">
                         {{ __('Cours') }}
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('enseignant')">
+                    <x-jet-nav-link href="{{ route('admin.enseignants') }}" :active="request()->routeIs('admin.enseignants')">
                         {{ __('Enseignants') }}
                     </x-jet-nav-link>
                 </div>
                
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('etudiants')">
+                    <x-jet-nav-link href="{{ route('admin.etudiants') }}" :active="request()->routeIs('admin.etudiants')">
                         {{ __('Etudiant') }}
                     </x-jet-nav-link>
                 </div>
@@ -188,18 +201,22 @@
             </x-jet-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('cours')">
+            <x-jet-responsive-nav-link href="{{ route('admin.modules') }}" :active="request()->routeIs('admin.modules')">
+                {{ __('Modules') }}
+            </x-jet-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-responsive-nav-link href="{{ route('admin.cours') }}" :active="request()->routeIs('admin.cours')">
                 {{ __('Cours') }}
             </x-jet-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('enseignants')">
+            <x-jet-responsive-nav-link href="{{ route('admin.enseignants') }}" :active="request()->routeIs('admin.enseignants')">
                 {{ __('Enseignants') }}
             </x-jet-responsive-nav-link>
         </div>
-        
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('Etudiants')">
+            <x-jet-responsive-nav-link href="{{ route('admin.etudiants') }}" :active="request()->routeIs('admin.etudiants')">
                 {{ __('Etudiants') }}
             </x-jet-responsive-nav-link>
         </div>
@@ -294,8 +311,10 @@
                 {{ $slot }}
             </main>
         </div>
+        @include('footer')
 
         @stack('modals')
+
 
         @livewireScripts
     </body>

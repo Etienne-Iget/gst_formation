@@ -18,7 +18,7 @@
                 </div>
                 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('inscription')">
+                    <x-jet-nav-link href="{{ route('inscription') }}" :active="request()->routeIs('inscription')">
                         {{ __('Inscription aux cours') }}
                     </x-jet-nav-link>
                 </div>
