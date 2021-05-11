@@ -13,11 +13,53 @@
                     <div class="container">
                      
                        <div class="row ">
-                            <div class="col-md-7 mx-auto ">
-                                <img src="{{asset('/images/gstsoft.png')}}" alt="" margin width="128px;"/>
-                                 <h3 class="mb-1">Enregistrement de l'Enseignant</h3>
-                             
-                            </div>
+                        <div class="col-md-7 mx-auto ">
+                                                            
+                            <div class="ml-12">
+                               <div class="mt-2 text-sm text-gray-500">
+                                   
+                                   <div  class="container box">
+                                       <img src="{{asset('/images/gstsoft.png')}}" alt="" margin width="128px;"/>
+                                       <h3 class="mb-1">Enregistrement de l'Enseignant</h3>
+
+                                       <div class="table-responsive">
+                                               <table id="customer_data" class="table table-bordered table-dark table-striped">
+                                                   <thead>
+                           
+                                                       <tr>
+                                                        <tr>
+                                                            <th>Nom</th>
+                                                            <th>Cours</th>
+                                                            <th>Niveau d'etude</th>
+                                                            <th>Téléphone</th>
+                                                            <th>email</th>
+                                                            
+                            
+                                                        </tr>
+                                                           
+                           
+                                                       </tr>
+                                                   </thead>
+                                                   @foreach ( $enseignants as $enseignant )
+                                                       
+                                                       <tr>
+                                                           <td>{{$enseignant['nom']}}</td>
+                                                           <td>{{$enseignant['cours']}}</td>
+                                                           <td>{{$enseignant['niveau']}}</td>
+                                                           <td>{{$enseignant['telephone']}}</td>
+                                                           <td>{{$enseignant['email']}}</td>
+                                                                 
+                                                       </tr>
+                                                   @endforeach
+                                               </table>
+                                       </div>
+                                   </div>
+                               </div>
+                   
+                           </div>
+                       </div>
+                       
+                            
                             <div class="col-md-5 order-md-last">
                                 <div class=" col-p-4 p-md-5">
                                

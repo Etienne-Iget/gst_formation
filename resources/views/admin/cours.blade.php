@@ -13,11 +13,45 @@
                     <div class="container">
                      
                        <div class="row ">
+                           
                             <div class="col-md-7 mx-auto ">
-                                <img src="{{asset('/images/gstsoft.png')}}" alt="" margin width="128px;"/>
-                                 <h3 class="mb-1">Enregistrement de Cours</h3>
-                             
-                            </div>
+                                                            
+                                <div class="ml-12">
+                                   <div class="mt-2 text-sm text-gray-500">
+                                       
+                                       <div  class="container box">
+                                           <img src="{{asset('/images/gstsoft.png')}}" alt="" margin width="128px;"/>
+                                           <h3 class="mb-1">Enregistrement de Cours</h3>
+
+                                           <div class="table-responsive">
+                                                   <table id="customer_data" class="table table-bordered table-dark table-striped">
+                                                       <thead>
+                               
+                                                           <tr>
+                                                               <th>id</th>
+                                                               <th>Cours</th>
+                                                               <th>Module</th>
+                                                               <th>Nombre_Heura</th>
+                                                               
+                                                           </tr>
+                                                       </thead>
+                                                       @foreach ( $cours as $cour )
+                                                           
+                                                           <tr>
+                                                               <td>{{$cour['id']}}</td>
+                                                               <td>{{$cour['cours']}}</td>
+                                                               <td>{{$cour['module']}}</td>
+                                                               <td>{{$cour['nombre_heure']}}</td>
+                                                                                                                                    
+                                                           </tr>
+                                                       @endforeach
+                                                   </table>
+                                           </div>
+                                       </div>
+                                   </div>
+                       
+                               </div>
+                           </div>
                             <div class="col-md-5 order-md-last">
                                 <div class=" col-p-4 p-md-5">
                                

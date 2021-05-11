@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cours;
-use App\Models\Cour;
-use App\Models\enseignant;
-use App\Models\module;
+use App\Models\Inscriptions;
+use App\Models\inscription;
 use Illuminate\Http\Request;
-
-class CoursController extends Controller
+use Illuminate\Support\Facades\Auth;
+class InscriptionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +15,13 @@ class CoursController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+   
+        var_dump($user->id);
+          
+        var_dump($user->name);
+          
+        var_dump($user->email);
     }
 
     /**
@@ -39,48 +43,44 @@ class CoursController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'nom'=>'required',
+            'numero_recu'=>'required',
+            'genre'=>'required',
+            'id_module'=>'required',
             
-            'module'=>'required',
-            'cours'=>'required',
-            'nombre_heure'=>'required',
-            'description'=>'required',
             
         ]);
         
-        Cours::create($request->all());
 
-        return redirect()->route('admin.cours')
-                         ->with('success',' Ajout du Cours reussie!');
+        Inscriptions::create($request->all());
+
+        return redirect()->route('inscription')
+                         ->with('success',' Ajout de l\'inscription reussie!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cours  $cours
+     * @param  \App\Models\Inscriptions  $inscriptions
      * @return \Illuminate\Http\Response
      */
     public function show()
     {
-        $data = cour::all();
-        $data_enseignants = enseignant::all();
-        return view('admin.enseignants',['cours'=>$data], ['enseignants'=>$data_enseignants]);
+        $user = auth()->user();
+        
+        $user_name=$user->name;
+        $data = inscription::all($columns = ['nom'=>$user_name]);
+        return view('inscription',['data_inscription'=>$data]);
+
     }
-   
-    public function show_cours()
-    {
-        $data = cour::all();
-        $data_module =  module::all();
-        return view('admin.cours',['modules'=>$data_module], ['cours'=>$data]);
-    }
-   
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cours  $cours
+     * @param  \App\Models\Inscriptions  $inscriptions
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cours $cours)
+    public function edit(Inscriptions $inscriptions)
     {
         //
     }
@@ -89,10 +89,10 @@ class CoursController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cours  $cours
+     * @param  \App\Models\Inscriptions  $inscriptions
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cours $cours)
+    public function update(Request $request, Inscriptions $inscriptions)
     {
         //
     }
@@ -100,10 +100,10 @@ class CoursController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cours  $cours
+     * @param  \App\Models\Inscriptions  $inscriptions
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cours $cours)
+    public function destroy(Inscriptions $inscriptions)
     {
         //
     }

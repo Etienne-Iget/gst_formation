@@ -3,22 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
-class modules extends Model
+class Inscriptions extends Model
 {
     use HasFactory, Notifiable;
-    
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'module',
-        'prix',
-        'description',
+        'nom',
+        'numero_recu',
+        'genre',
+        'id_module',
         
     ];
 }

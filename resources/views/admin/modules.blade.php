@@ -14,10 +14,45 @@
                      
                        <div class="row ">
                             <div class="col-md-7 mx-auto ">
-                                <img src="{{asset('/images/gstsoft.png')}}" alt="" margin width="128px;"/>
-                                 <h3 class="mb-1">Enregistrement de Module</h3>
-                             
+                                                            
+                                 <div class="ml-12">
+                                    <div class="mt-2 text-sm text-gray-500">
+                                        
+                                        <div  class="container box">
+                                            <img src="{{asset('/images/gstsoft.png')}}" alt="" margin width="128px;"/>
+                                            <h3 class="mb-1">Enregistrement de Module</h3>
+
+                                            <div class="table-responsive">
+                                                    <table id="customer_data" class="table table-bordered table-dark table-striped">
+                                                        <thead>
+                                
+                                                            <tr>
+                                                                <th>id</th>
+                                                                <th>Modules</th>
+                                                                <th>Prix</th>
+                                                                <th>Descriptions</th>
+                                                                
+                                
+                                                            </tr>
+                                                        </thead>
+                                                        @foreach ( $modules as $module )
+                                                            
+                                                            <tr>
+                                                                <td>{{$module['id']}}</td>
+                                                                <td>{{$module['module']}}</td>
+                                                                <td>{{$module['prix']}}</td>
+                                                                <td>{{$module['description']}}</td>
+                                                                      
+                                                            </tr>
+                                                        @endforeach
+                                                    </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                </div>
                             </div>
+                            
                             <div class="col-md-5 order-md-last">
                                 <div class=" col-p-4 p-md-5">
                                
@@ -29,6 +64,11 @@
                                         <div class="form-group">
                                             <label class="label" for="name">Module</label>
                                             <input type="text" id="module" name="module" class="form-control"  placeholder="" required autofocus>
+                                                        
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label" for="name">Prix</label>
+                                            <input type="text" id="prix" name="prix" class="form-control"  placeholder="" required autofocus>
                                                         
                                         </div>
 

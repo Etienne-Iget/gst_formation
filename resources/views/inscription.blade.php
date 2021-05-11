@@ -2,7 +2,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Inscription aux Cours') }}
+            {{ __('Inscription au Module') }}
         </h2>
     </x-slot>
 
@@ -16,22 +16,25 @@
                        <div class="row ">
                             <div class="col-md-7 mx-auto ">
                                 
-                                 <h3 class="mb-1">Enregistrement</h3>
-                                <p>Inscription</p>
-                                <img src="{{asset('/images/gstsoft.png')}}" alt="" margin width="128px;"/>
+                                 <h3 class="mb-1">Inscription</h3>
+                                    <img src="{{asset('/images/gstsoft.png')}}" alt="" margin width="128px;"/>
                                 
                             </div>
                             <div class="col-md-5 order-md-last">
                                 <div class=" col-p-4 p-md-5">
-                               
-                 
-                                    <form action="" class="signup-form" method="POST">
+                                   {{$data_inscription}}
+                                    <form action="{{route('inscription.store')}}" class="signup-form" method="POST">
                                     
                                         @csrf
                                         
                                         <div class="form-group">
                                             <label class="label" for="name">Nom Complet</label>
-                                            <input type="text" id="nom" name="name" class="form-control"  placeholder="" required >
+                                            <input type="text" id="nom" name="nom" class="form-control"  placeholder="{{$nom}}" required disabled >
+                                                        
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label" for="name">Numéro du Réçu</label>
+                                            <input type="text" id="recu" name="numero_recu" class="form-control"  placeholder="" required autofocus>
                                                         
                                         </div>
                                         <div class="form-group">
@@ -44,19 +47,17 @@
                                                     
                                         </div>
                                         <div class="form-group">
-                                            <label class="label" for="email">Email </label>
-                                            <input type="text" id="email" name="email" class="form-control"  placeholder="" required autofocus>
-                                            
+                                            <label class="label" for="name">Module</label>
+                                            <select class="form-control" name="id_module" >
+                                                <option disabled selected>Module</option>
+                                                @foreach ( $modules as $module )
+                                                 
+                                                <option value="{{$module['id']}}" > {{$module['module']}} Prix:{{$module['prix']}} </option>
+                                               
+                                                @endforeach
+                                            </select>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="label" for="password">Mot de Passe</label>
-                                            <input id="password-field" name="password" type="password" name="password" class="form-control" placeholder="" required autofocus>
-                                        
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="label" for="password">Confirmation Mot de Passe</label>
-                                            <input id="password-field" type="password" name="Confirmation" class="form-control" placeholder="" required autofocus>
-                                        </div>
+
                                         <div class="form-group d-flex justify-content-end mt-4">
                                             <button type="submit" class="btn btn-primary submit">Enregistrer <span class="fa fa-paper-plane"></span></button>
                                         </div>

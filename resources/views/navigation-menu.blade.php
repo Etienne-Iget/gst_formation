@@ -19,7 +19,7 @@
                 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('inscription') }}" :active="request()->routeIs('inscription')">
-                        {{ __('Inscription aux cours') }}
+                        {{ __('Inscription au Module') }}
                     </x-jet-nav-link>
                 </div>
                
