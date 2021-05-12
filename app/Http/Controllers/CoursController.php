@@ -40,7 +40,7 @@ class CoursController extends Controller
     {
         $request->validate([
             
-            'module'=>'required',
+            'module_id'=>'required',
             'cours'=>'required',
             'nombre_heure'=>'required',
             'description'=>'required',

@@ -19,7 +19,10 @@ class CreateInscriptionsTable extends Migration
             $table->string('numero_recu')->unique();
             $table->string('confirmation_recu')->default('NON')->comment('NON pour Non-confirmé et OUI pour La confirmation');
             $table->string('genre');
-            $table->string('id_module');
+            $table->unsignedBigInteger('module_id');
+            $table->foreign('module_id')->references('id')->on('modules')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@ class Inscriptions extends Model
         'nom',
         'numero_recu',
         'genre',
-        'id_module',
+        'module_id',
         
     ];
 }

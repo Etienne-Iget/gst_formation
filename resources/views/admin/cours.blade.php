@@ -40,7 +40,7 @@
                                                            <tr>
                                                                <td>{{$cour['id']}}</td>
                                                                <td>{{$cour['cours']}}</td>
-                                                               <td>{{$cour['module']}}</td>
+                                                               <td>{{$cour['module_id']}}</td>
                                                                <td>{{$cour['nombre_heure']}}</td>
                                                                                                                                     
                                                            </tr>
@@ -62,11 +62,11 @@
                                         
                                         <div class="form-group">
                                             <label class="label" for="name">Module</label>
-                                            <select class="form-control" name="module" >
+                                            <select class="form-control" name="module_id" >
                                                 <option disabled selected>Modules</option>
                                                 @foreach ( $modules as $module )
                                                  
-                                                <option value="{{$module['module']}}" > {{$module['module']}} </option>
+                                                <option value="{{$module['id']}}" > {{$module['module']}} </option>
                                                
                                                 @endforeach
                                             </select>

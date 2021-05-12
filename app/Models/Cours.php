@@ -16,10 +16,14 @@ class Cours extends Model
      * @var array
      */
     protected $fillable = [
-        'module',
+        'module_id',
         'cours',
         'nombre_heure',
         'description',
         
     ];
+
+    public function modules(){
+        return $this->belongsTo('App\Models\modules');
+    }
 }

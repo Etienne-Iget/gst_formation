@@ -9,6 +9,11 @@
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
+                @if(session()->has('success'))
+                    <div class="alert alert-success">
+                        {{ session()->get('success') }}
+                    </div>
+                @endif
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

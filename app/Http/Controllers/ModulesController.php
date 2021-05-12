@@ -8,6 +8,7 @@ use App\Models\enseignant;
 use App\Models\Cour;
 use App\Models\inscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ModulesController extends Controller
 {
@@ -96,9 +97,19 @@ class ModulesController extends Controller
         
         $user_name=$user->name;
         // dd($user->email);
+        $confirmation_recu= inscription::where('nom',$user_name)->where('confirmation_recu','NON')->count();
         $data_inscription = inscription::where('nom',$user_name)->get();
+
+        $articles =DB::table('inscriptions')
+        ->join('cours', 'inscriptions.module_id', '=', 'cours.module_id')
+        ->join('modules', 'inscriptions.module_id', '=', 'modules.id')
+        ->select('cours.cours','cours.nombre_heure','modules.module','modules.prix')
+        ->get();
        
-        return view('inscription',['modules'=>$data],['nom'=>$user_name,'data_inscription'=>$data_inscription]);
+        // dd($articles);
+        
+            return view('inscription',['modules'=>$data],['nom'=>$user_name,'data_inscription'=>$data_inscription,'count'=>$confirmation_recu, 'affiches'=>$articles]);  
+ 
     }
 
     /**

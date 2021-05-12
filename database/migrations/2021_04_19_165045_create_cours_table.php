@@ -15,7 +15,10 @@ class CreateCoursTable extends Migration
     {
         Schema::create('cours', function (Blueprint $table) {
             $table->id();
-            $table->string('module');
+            $table->unsignedBigInteger('module_id');
+            $table->foreign('module_id')->references('id')->on('modules')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
             $table->string('cours')->unique();
             $table->string('nombre_heure');
             $table->text('description');

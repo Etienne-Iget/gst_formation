@@ -15,13 +15,13 @@ class InscriptionsController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        // $user = Auth::user();
    
-        var_dump($user->id);
+        // var_dump($user->id);
           
-        var_dump($user->name);
+        // var_dump($user->name);
           
-        var_dump($user->email);
+        // var_dump($user->email);
     }
 
     /**
@@ -46,8 +46,7 @@ class InscriptionsController extends Controller
             'nom'=>'required',
             'numero_recu'=>'required',
             'genre'=>'required',
-            'id_module'=>'required',
-            
+            'module_id'=>'required',
             
         ]);
         
@@ -55,7 +54,7 @@ class InscriptionsController extends Controller
         Inscriptions::create($request->all());
 
         return redirect()->route('inscription')
-                         ->with('success',' Ajout de l\'inscription reussie!');
+                         ->with('success','l\'inscription reussie!');
     }
 
     /**

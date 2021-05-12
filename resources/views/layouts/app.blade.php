@@ -26,6 +26,11 @@
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+    </style>
     <body class="font-sans antialiased">
         <x-jet-banner />
 

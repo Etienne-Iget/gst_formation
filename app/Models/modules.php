@@ -21,4 +21,8 @@ class modules extends Model
         'description',
         
     ];
+
+    public function cours(){
+        return $this->hasMany('App\Models\Cours');
+    }
 }
