@@ -16,7 +16,7 @@
                         <div class="row ">
                          <div class="col-md-7 mx-auto ">
                                                              
-                             <div class="ml-12">
+                             <div class="ml-8">
                                 <div class="mt-2 text-sm text-gray-500">
                                     
                                     <div  class="container box">

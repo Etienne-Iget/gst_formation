@@ -24,21 +24,86 @@
 
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
+        <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+            <!-- Primary Navigation Menu -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <!-- Logo -->
+                        <div class="flex-shrink-0 flex items-center">
+                            <a href="{{ url('/') }}">
+                               
+                                <x-jet-application-mark class="block h-9 w-auto" />
+                            </a>   
+                        </div> <br>
+                        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                            {{ __('Forum') }}
+                        </h2>
+                        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+                            @if (Route::has('login'))
+                                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                                    @auth
+                                        <a href="{{ url('/welcome') }}" class="text-sm text-gray-700 underline">Forum</a>
+                                    @else
+                                        <a href="{{ route('login') }}" class="text-sm text-gray-700 btn btn-success">Connexion</a>
+                
+                                        @if (Route::has('register'))
+                                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 btn btn-info">Inscription</a>
+                                        @endif
+                                    @endauth
+                                </div>
+                            @endif
+        
+                        
+                       
+                    </div>
+                    
+        
+        
+                    <!-- Hamburger -->
+                    <div class=" -mr-2 item-center sm:hidden">
+                        @auth
+                        <a href="{{ url('/welcome') }}" class="text-sm text-gray-700 underline">Forum</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Connexion</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Inscription</a>
-                        @endif
+                    <a href="{{ route('login') }}" class="text-sm text-gray-700 btn btn-success">Connexion</a>
+                
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 btn btn-info">Inscription</a>
+                    @endif
                     @endauth
+                    </div>
                 </div>
-            @endif
+            </div>
+                        
+        </nav>
+        
+        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+           
 
+            <div class="container">
+                <div class="list-group">
+                    @foreach ( $topics as $topic )
+                    <div class="list-group-item">
+                        <h4><a href="#">{{ $topic->title}}</a></h4>
+                        <p>{{ $topic->content }}</p>
+             
+                        <div class="d-flex justify-content-between align-item-center">   
+                            <small>posté le {{$topic->created_at->format('d/m/Y à H:s')}}</small> 
+                            <span class="badge badge-light border border-info">{{$topic->user->name}}</span>
+            
+                        </div> 
+            
+                    </div>
+                        
+                    @endforeach
+                </div>
+                <div class="d-flex justify-content-center mt-3"></div>
+                {{$topics->links()}}
+            </div>
+        </div>
+    
+            
+            
             
         @include('footer')
     </body>

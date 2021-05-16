@@ -43,7 +43,7 @@
     <div class="col-md-12 text-center">
   
       <p>
-        Copyright&copy;  <script>document.write(new Date().getFullYear());  </script>  GST  All rights reserved by IGUGU ETIENNE Tshisekedi
+        Copyright&copy;  <script>document.write(new Date().getFullYear());  </script>  GST  All rights reserved <br> by IGUGU ETIENNE Tshisekedi
        </p>
     </div>
   </div>
