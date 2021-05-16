@@ -6,13 +6,14 @@ use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class TopicController extends Controller
 {
 
-    // public function __construct(){
-    //     $this->middleware('auth')->except(['welcome','show']);
-    // }
+    public function __construct(){
+        $this->middleware('auth')->except(['welcome','show']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -67,7 +68,7 @@ class TopicController extends Controller
      * @param  \App\Models\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Topic $topic, $id)
     {
         
         
@@ -83,11 +84,23 @@ class TopicController extends Controller
      * @param  \App\Models\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Topic $topic, $id)
     {
+        $user=Auth()->id();
         $topic = Topic::where('id',$id)->get();
-        // dd($topic);
-        return view('/edit', compact('topic'));
+        foreach($topic as $topics) 
+        $user_id= $topics->user_id;
+        // dd($user_id);
+            if($user === $user_id) {
+
+                $topic = Topic::where('id',$id)->get();
+                return view('/edit', compact('topic'));
+            
+            } else {
+                return view('/show', compact('topic'))->with('success', 'Vous etes paas autorisé');
+            }
+      
+        
     }
 
     /**
@@ -99,16 +112,30 @@ class TopicController extends Controller
      */
     public function update(Request $request, Topic $topic, $id)
     {
-        $data = $request->validate([
-            'title'=>'required',
-            'content'=>'required',
-        ]);
-        DB::table('topics')
-            ->where('id', $id)
-            ->update($data);
         
+
+        $user=Auth()->id();
         $topic = Topic::where('id',$id)->get();
-        return view('/show', compact('topic'));
+        foreach($topic as $topics) 
+        $user_id= $topics->user_id;
+        // dd($user_id);
+            if($user === $user_id) {
+
+                $data = $request->validate([
+                    'title'=>'required',
+                    'content'=>'required',
+                ]);
+                DB::table('topics')
+                    ->where('id', $id)
+                    ->update($data);
+                
+                $topic = Topic::where('id',$id)->get();
+                return view('/show', compact('topic'));
+            
+            } else {
+                return view('/show', compact('topic'))->with('success', 'Vous etes paas autorisé');
+            }
+       
     }
 
     /**
@@ -119,7 +146,20 @@ class TopicController extends Controller
      */
     public function destroy(Topic $topic, $id)
     {
-       DB::table('topics')->where('id', '=', $id)->delete();
-       return redirect('/user/dashboard');
+        $user=Auth()->id();
+        $topic = Topic::where('id',$id)->get();
+        foreach($topic as $topics) 
+        $user_id= $topics->user_id;
+        // dd($user_id);
+            if($user === $user_id) {
+
+                DB::table('topics')->where('id', '=', $id)->delete();
+                return redirect('/user/dashboard')->with('success', 'La poste supprimer avec succès');
+            
+            } else {
+                return view('/show', compact('topic'))->with('success', 'Vous etes paas autorisé');
+            }
+      
+      
     }
 }

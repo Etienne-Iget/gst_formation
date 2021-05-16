@@ -80,9 +80,9 @@ Route::middleware(['auth:sanctum', 'verified'])
 Route::middleware(['auth:sanctum', 'verified'])
     ->post('/user/show/{id}',[App\Http\Controllers\TopicController::class,'update'])
     ->name('topic.update');
-// Route::middleware(['auth:sanctum', 'verified'])
-//     ->get('/user/show/{id}',[App\Http\Controllers\TopicController::class,'destroy'])
-//     ->name('topic.destroy');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/user/delete/{id}',[App\Http\Controllers\TopicController::class,'destroy'])
+    ->name('topic.destroy');
 
 // Wed routes user
 

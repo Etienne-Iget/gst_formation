@@ -10,6 +10,33 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2 ">
                     @foreach ($topic as $topics )
+                    <div class="p-6 ">
+                        <div class="flex items-center">
+            
+                            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold"><a href="#">Mon Poste</a></div>
+                        </div>
+            
+                        <div class="ml-12">
+                        
+                            <div class="container">
+                                <div class="card">
+                                    <div class="card-body">
+                                       
+                                        <h5 class="card-title">{{$topics->title}}</h5>
+                                        <p>{{ $topics->content }}</p>
+
+                                        <div class="d-flex justify-content-between align-item-center">   
+                                            <small>posté le {{$topics->created_at->format('d/m/Y à H:s')}}</small> 
+                                            <span class="badge badge-light border border-dark">{{$topics->user->name}}</span>
+                                          
+                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
                 
                     <div class="p-6 border-t border-gray-200 md:border-t-0 md:border-l">
                         <div class="flex items-center">

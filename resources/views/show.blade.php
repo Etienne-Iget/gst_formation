@@ -1,7 +1,8 @@
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Forum') }}
+            {{ __('Affichage') }}
         </h2>
     </x-slot>
        
@@ -45,10 +46,16 @@
                     
                             <div class="ml-4">
                                
+                                <p>Seul l'auteur qui peut modifier le topic</p>
                                     <div class="form-group d-flex justify-content-between">
+                                        @can('update',$topics)
                                         <a href="{{route('topic.edit',[$topics->id])}}" class="btn btn-warning">Modifier</a>
+                                        @endcan
                                       
-                                        {{-- <a href="{{route('topic.destroy',[$topics->id])}}" class="btn btn-danger">Supprimer</a> --}}
+                                        @can('delete',$topics)
+                                        <a href="{{route('topic.destroy',[$topics->id])}}" class="btn btn-danger">Supprimer</a>
+                                        @endcan
+
                                     </div>
                                     
                             </div>
