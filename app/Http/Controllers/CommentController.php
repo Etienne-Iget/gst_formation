@@ -12,7 +12,7 @@ class CommentController extends Controller
         $this->middleware('auth');
     }
 
-    public function store(Topic $topic, Request $request, $id)
+    public function store(Topic $topic, $id)
     {
         
         request()->validate([
@@ -27,10 +27,26 @@ class CommentController extends Controller
             
         $topic->comments()->save($comment);
 
-        $comments= Comment::where('commentable_id',$id)->get();
-        // dd($comments);
         return redirect()->route('topic.show', $id);
-        
-        
+       
+    }
+
+    public function storeCommentReply(Comment $comment){
+
+        request()->validate([
+            'replyComment'=>'required'
+        ]);
+
+        $comment = Comment::find($comment->id);
+
+        $commentReply = new comment();
+        $commentReply->content = request('replyComment');
+        $commentReply->user_id = auth()->user()->id;
+
+        $comment->comments()->save($commentReply);
+
+       
+        return redirect()->back();
+
     }
 }

@@ -98,5 +98,8 @@ Route::middleware(['auth:sanctum', 'verified'])
 Route::middleware(['auth:sanctum', 'verified'])
     ->post('/comment/{id}',[App\Http\Controllers\CommentController::class,'store'] )
 	->name('comment.store');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->post('/commentReply/{comment}',[App\Http\Controllers\CommentController::class,'storeCommentReply'] )
+	->name('comment.storeReply');
     
-
+   

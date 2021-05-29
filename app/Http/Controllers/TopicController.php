@@ -72,7 +72,7 @@ class TopicController extends Controller
     public function show(Topic $topic, $id)
     {
         
-        $comments= Comment::where('commentable_id',$id)->latest()->paginate(4);
+        $comments= Comment::where('commentable_id',$id)->latest()->paginate(3);
         $topic = Topic::where('id',$id)->get();
         // dd($topic);
         return view('/show', ['topic'=>$topic, 'comments'=>$comments]);

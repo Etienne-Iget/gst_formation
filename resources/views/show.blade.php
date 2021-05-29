@@ -6,6 +6,7 @@
         </h2>
     </x-slot>
        
+             
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -99,7 +100,7 @@
                             <div class="ml-12">
                                 <div class="mt-2 text-sm text-gray-500">
                                     @forelse($comments as $comment)
-                                    <div class="card md-1">
+                                    <div class="card md-1 contenu-blanc-avec-scroll">
                                         <div class="card-body">
                                             {{$comment->content}}
                                             <div class="d-flex justify-content-between align-item-center">   
@@ -108,7 +109,35 @@
                                 
                                             </div> 
                                         </div>
+                                        
+                                       
+                                        <button class="btn btn-info" onclick="toggleReplyComment({{$comment->id }})">Répondre</button>
+                                        <button class="btn btn-info" onclick="toggleSeeComment({{$comment->id }})">Afficher les commentaires</button>
                                     </div>
+                                    @foreach ($comment->comments as $replyComment )
+                                            
+                                        <div class="card-body ml-8 d-none" id="SeeComment-{{$comment->id }}">
+                                            {{$replyComment->content}}
+                                            <div class="d-flex justify-content-between align-item-center">   
+                                                <small class="badge badge-light border border-light">posté le {{$replyComment->created_at->format('d/m/Y à H:s')}}</small> 
+                                                <span class="badge badge-light border border-light">{{$replyComment->user->name}}</span>
+                                
+                                            </div> 
+                                        </div>
+                                        @endforeach
+                                    <form action="{{route('comment.storeReply',[$comment])}}" method="POST" class="ml-4 d-none" id="replyComment-{{$comment->id }}" >
+                                        @csrf
+                                        <div class="form-group">
+                                               <label class="label" for="replyComment">Réponse du Commentaire</label>
+                                                <textarea rows="4" id="replyComment" class="form-control @error('replyComment') is-invalid @enderror" name="replyComment" aria-label="With textarea"></textarea>
+                                                     @error('replyComment')
+                                                        <div class="invalid-feedback">{{$errors->first('replyComment')}}</div>
+                                                                                    
+                                                     @enderror      
+                                                <button type="submit" class="btn btn-success submit">Répondre <span class="fa fa-paper-plane"></span></button>
+                                             </div>
+                                    </form>
+
                                     @empty
                                     <div class=" alert alert-info">Pas de commentaires pour le moment </div>
                                     @endforelse
@@ -120,4 +149,18 @@
             </div>
         </div>
     </div>
+    <script>
+        function toggleReplyComment(id)
+        {
+            let element =document.getElementById('replyComment-'+ id);
+            element.classList.toggle('d-none'); 
+        }
+    </script>
+    <script>
+        function toggleSeeComment(id)
+        {
+            let element =document.getElementById('SeeComment-'+ id);
+            element.classList.toggle('d-none'); 
+        }
+    </script>
     </x-app-layout>
