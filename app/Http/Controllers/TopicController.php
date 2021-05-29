@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Topic;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -71,10 +72,10 @@ class TopicController extends Controller
     public function show(Topic $topic, $id)
     {
         
-        
+        $comments= Comment::where('commentable_id',$id)->latest()->paginate(4);
         $topic = Topic::where('id',$id)->get();
         // dd($topic);
-        return view('/show', compact('topic'));
+        return view('/show', ['topic'=>$topic, 'comments'=>$comments]);
        
     }
 
@@ -150,6 +151,7 @@ class TopicController extends Controller
         $topic = Topic::where('id',$id)->get();
         foreach($topic as $topics) 
         $user_id= $topics->user_id;
+        
         // dd($user_id);
             if($user === $user_id) {
 

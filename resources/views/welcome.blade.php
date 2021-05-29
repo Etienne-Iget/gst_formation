@@ -84,11 +84,11 @@
                 <div class="list-group">
                     @foreach ( $topics as $topic )
                     <div class="list-group-item">
-                        <h4><a href="#">{{ $topic->title}}</a></h4>
+                        <h4><a href="{{route('topic.show',[$topic->id])}}">{{ $topic->title}}</a></h4>
                         <p>{{ $topic->content }}</p>
              
                         <div class="d-flex justify-content-between align-item-center">   
-                            <small>posté le {{$topic->created_at->format('d/m/Y à H:s')}}</small> 
+                            <small class="badge badge-success border border-dark">posté le {{$topic->created_at->format('d/m/Y à H:s')}}</small> 
                             <span class="badge badge-light border border-info">{{$topic->user->name}}</span>
             
                         </div> 

@@ -78,26 +78,35 @@
                                         
                                         <div class="form-group">
                                             <label class="label" for="name">Nom Complet</label>
-                                            <input type="text" id="nom" name="nom" class="form-control" value="{{$nom}}" placeholder="{{$nom}}" required >
-                                                        
+                                            <input type="text" id="nom" name="nom" class="form-control @error('nom') is-invalid @enderror" value="{{$nom}}" placeholder="{{$nom}}" required >
+                                            @error('content')
+                                            <div class="invalid-feedback">{{$errors->first('nom')}}</div>
+                                            
+                                        @enderror          
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="name">Numéro du Réçu</label>
-                                            <input type="text" id="recu" name="numero_recu" class="form-control"  placeholder="" required autofocus>
-                                                        
+                                            <input type="text" id="recu" name="numero_recu" class="form-control @error('numero_recu') is-invalid @enderror"  placeholder="" required autofocus>
+                                            @error('content')
+                                            <div class="invalid-feedback">{{$errors->first('numero_recu')}}</div>
+                                            
+                                        @enderror          
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="name">Genre</label>
-                                            <select class="form-control" name="genre" >
+                                            <select class="form-control @error('genre') is-invalid @enderror" name="genre" >
                                                 <option disabled selected>Genre</option>
                                                 <option value="Homme" > Homme </option>
                                                 <option value="Femme" > Femme </option>
                                             </select>
-                                                    
+                                            @error('content')
+                                            <div class="invalid-feedback">{{$errors->first('genre')}}</div>
+                                            
+                                        @enderror     
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="name">Module</label>
-                                            <select class="form-control" name="module_id" >
+                                            <select class="form-control @error('module_id') is-invalid @enderror" name="module_id" >
                                                 <option disabled selected>Module</option>
                                                 @foreach ( $modules as $module )
                                                  
@@ -105,6 +114,10 @@
                                                
                                                 @endforeach
                                             </select>
+                                            @error('content')
+                                                <div class="invalid-feedback">{{$errors->first('module_id')}}</div>
+                                                
+                                            @enderror
                                         </div>
 
                                         <div class="form-group d-flex justify-content-end mt-4">

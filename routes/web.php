@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TopicController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,4 +94,9 @@ Route::middleware(['auth:sanctum', 'verified'])
     ->post('/user/inscription',[App\Http\Controllers\InscriptionsController::class,'store'])
     ->name('inscription.store');
 
+// commment
+Route::middleware(['auth:sanctum', 'verified'])
+    ->post('/comment/{id}',[App\Http\Controllers\CommentController::class,'store'] )
+	->name('comment.store');
+    
 
