@@ -66,6 +66,9 @@ Route::middleware(['auth:sanctum', 'verified'])
     ->get('/user/dashboard',[App\Http\Controllers\TopicController::class,'index'] )
     ->name('topic.index');
 Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/user/postes',[App\Http\Controllers\TopicController::class,'mesPosts'] )
+    ->name('topic.mesPosts');
+Route::middleware(['auth:sanctum', 'verified'])
     ->get('/user/create',[App\Http\Controllers\TopicController::class,'create'] )
     ->name('topic.create');
 Route::middleware(['auth:sanctum', 'verified'])
@@ -101,5 +104,8 @@ Route::middleware(['auth:sanctum', 'verified'])
 Route::middleware(['auth:sanctum', 'verified'])
     ->post('/commentReply/{comment}',[App\Http\Controllers\CommentController::class,'storeCommentReply'] )
 	->name('comment.storeReply');
-    
-   
+ 
+    // Notification   
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('showFromNotification/{topic}/{notification}',[App\Http\Controllers\TopicController::class,'showFromNotification'])
+    ->name('topic.showFromNotification'); 

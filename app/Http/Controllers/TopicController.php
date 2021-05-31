@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Topic;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,12 @@ class TopicController extends Controller
     {
         $topics = Topic::latest()->paginate(10);
         return view('/dashboard', compact('topics'));
+    }
+    public function mesPosts()
+    {
+        $id=auth()->user()->id;
+        $topics = Topic::where('user_id',$id)->latest()->paginate(10);
+        return view('/postes', compact('topics'));
     }
 
     /**
@@ -56,9 +63,9 @@ class TopicController extends Controller
             'content'=>'required',
         
         ]);
-        
+      
         $topic=Topic::create(['user_id' => auth()->id()] + $data);
-        // $topic=auth()->user()->topics()->create($data);
+       
         return redirect::route('topic.show', $topic->id);
         
     }
@@ -74,8 +81,20 @@ class TopicController extends Controller
         
         $comments= Comment::where('commentable_id',$id)->latest()->paginate(3);
         $topic = Topic::where('id',$id)->get();
-        // dd($topic);
-        return view('/show', ['topic'=>$topic, 'comments'=>$comments]);
+        
+        return view('show', ['topic'=>$topic, 'comments'=>$comments]);
+       
+    }
+
+    public function showFromNotification(Topic $topic, DatabaseNotification $notification)
+    {
+        
+        $notification->markAsRead();
+
+        $comments= Comment::where('commentable_id',$topic->id)->latest()->paginate(3);
+        $topic = Topic::where('id',$topic->id)->get();
+        
+        return view('show', ['topic'=>$topic, 'comments'=>$comments]);  
        
     }
 

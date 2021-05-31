@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-<div class="container">
+<div class="container py-2">
     <div class="list-group">
         @foreach ( $topics as $topic )
         <div class="list-group-item">

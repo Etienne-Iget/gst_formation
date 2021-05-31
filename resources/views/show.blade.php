@@ -26,9 +26,17 @@
                                             <h5 class="card-title">{{$topics->title}}</h5>
                                             <p>{{ $topics->content }}</p>
  
-                                            <div class="d-flex justify-content-between align-item-center">   
-                                                <small class="badge badge-success border border-dark">posté le {{$topics->created_at->format('d/m/Y à H:s')}}</small> 
-                                                <span class="badge badge-light border border-dark">{{$topics->user->name}}</span>
+                                            <div class="d-flex justify-content-between align-item-center">
+                                                @if (auth()->user()->name == $topics->user->name)
+
+                                                <small class="badge badge-light border border-dark">Posté le {{$topics->created_at->format('d/m/Y à H:s')}} par Moi</small> 
+                                                
+                                                @else
+
+                                                <small class="badge badge-light border border-dark">Posté le {{$topics->created_at->format('d/m/Y à H:s')}} par : {{$topics->user->name}}</small> 
+                                                
+                                                @endif
+                                                
                                                 @endforeach
                                
                                             </div>
@@ -104,27 +112,42 @@
                                         <div class="card-body">
                                             {{$comment->content}}
                                             <div class="d-flex justify-content-between align-item-center">   
-                                                <small class="badge badge-light border border-light">posté le {{$comment->created_at->format('d/m/Y à H:s')}}</small> 
-                                                <span class="badge badge-light border border-light">{{$comment->user->name}}</span>
-                                
+                                                @if (auth()->user()->name == $comment->user->name)
+                                                
+                                                <small class="badge badge-light border border-light">Posté le {{$comment->created_at->format('d/m/Y à H:s')}} par Moi</small> 
+                                                
+                                                @else
+                                                
+                                                <small class="badge badge-light border border-light">posté le {{$comment->created_at->format('d/m/Y à H:s')}} par : {{$comment->user->name}}</small> 
+                                                
+                                                @endif
                                             </div> 
                                         </div>
                                         
                                        
                                         <button class="btn btn-info" onclick="toggleReplyComment({{$comment->id }})">Répondre</button>
-                                        <button class="btn btn-info" onclick="toggleSeeComment({{$comment->id }})">Afficher les commentaires</button>
+                                        <button class="btn btn-dark" onclick="toggleSeeComment({{$comment->id }})">Afficher les réponses du commentaire</button>
                                     </div>
-                                    @foreach ($comment->comments as $replyComment )
-                                            
-                                        <div class="card-body ml-8 d-none" id="SeeComment-{{$comment->id }}">
+                                    
+                                    <div class="card-body ml-8 d-none alert alert-dark" role="alert" id="SeeComment-{{$comment->id }}">
+                                        @foreach ($comment->comments as $replyComment )
                                             {{$replyComment->content}}
-                                            <div class="d-flex justify-content-between align-item-center">   
-                                                <small class="badge badge-light border border-light">posté le {{$replyComment->created_at->format('d/m/Y à H:s')}}</small> 
-                                                <span class="badge badge-light border border-light">{{$replyComment->user->name}}</span>
-                                
+                                            <div class="d-flex justify-content-between align-item-center " >  
+                                                {{-- <small class="badge badge-light border border-light">posté le {{$replyComment->created_at->format('d/m/Y à H:s')}} par : {{$replyComment->user->name}}</small>  --}}
+                                                
+                                                @if (auth()->user()->name == $replyComment->user->name)
+
+                                                <small class="badge badge-light border border-light">Répondu le {{$replyComment->created_at->format('d/m/Y à H:s')}} par Moi</small> 
+                                                
+                                                @else
+
+                                                <small class="badge badge-light border border-light">Répondu le {{$replyComment->created_at->format('d/m/Y à H:s')}} par : {{$replyComment->user->name}}</small> 
+                                                
+                                                @endif
+
                                             </div> 
-                                        </div>
                                         @endforeach
+                                    </div>
                                     <form action="{{route('comment.storeReply',[$comment])}}" method="POST" class="ml-4 d-none" id="replyComment-{{$comment->id }}" >
                                         @csrf
                                         <div class="form-group">
