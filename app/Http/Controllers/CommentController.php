@@ -53,4 +53,8 @@ class CommentController extends Controller
         return redirect()->back();
 
     }
+
+    public function markedAsSolution(Topic $topic, Comment $comment){
+        
+    }
 }

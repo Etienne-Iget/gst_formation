@@ -104,6 +104,9 @@ Route::middleware(['auth:sanctum', 'verified'])
 Route::middleware(['auth:sanctum', 'verified'])
     ->post('/commentReply/{comment}',[App\Http\Controllers\CommentController::class,'storeCommentReply'] )
 	->name('comment.storeReply');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->post('/markAsSolution/{topic}/{comment}',[App\Http\Controllers\CommentController::class,'markedAsSolution'] )
+	->name('comment.markAsSolution');
  
     // Notification   
 Route::middleware(['auth:sanctum', 'verified'])

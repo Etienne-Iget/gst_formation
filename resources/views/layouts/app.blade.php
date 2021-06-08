@@ -13,13 +13,33 @@
         <!-- Styles -->
         {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
         <link rel="stylesheet" href="/css/app.css">
-        <link rel="stylesheet" href="css/animate.css">
-        <link rel="stylesheet" href="/fonts/bootstrap/dist/css/bootstrap.css">
-        <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
-        <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css">
+        {{-- <link rel="stylesheet" href="css/animate.css"> --}}
+        {{-- <link rel="stylesheet" href="/fonts/bootstrap/dist/css/bootstrap.css"> --}}
+        {{-- <link rel="stylesheet" href="/css/bootstrap-datepicker.css"> --}}
+        {{-- <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css"> --}}
         <link rel="stylesheet" type="/text/css" href="font-awesome/css/font-awesome.min.css">  
-        <link rel="stylesheet" href="/css/flaticon.css">
+        {{-- <link rel="stylesheet" href="/css/flaticon.css"> --}}
         <link rel="stylesheet" href="/css/style.css">
+        <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon"/>
+
+	<!-- Fonts and icons -->
+	<script src="../assets/js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+			google: {"families":["Lato:300,400,700,900"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../assets/css/fonts.min.css']},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	{{-- <link rel="stylesheet" href="../assets/css/atlantis.min.css"> --}}
+
+	<!-- CSS Just for demo purpose, don't include it in your project -->
+	<link rel="stylesheet" href="../assets/css/demo.css">
 
         @livewireStyles
 
@@ -31,7 +51,7 @@
             font-family: 'Nunito', sans-serif;
         }
     </style>
-    <body class="font-sans antialiased">
+    <body data-background-color="dark">
         <x-jet-banner />
 
         <div class="min-h-screen bg-gray-100">

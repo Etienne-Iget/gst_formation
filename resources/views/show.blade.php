@@ -1,13 +1,11 @@
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Affichage') }}
         </h2>
     </x-slot>
-       
              
-        <div class="py-12">
+        <div class="py-4">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2 ">
@@ -29,11 +27,11 @@
                                             <div class="d-flex justify-content-between align-item-center">
                                                 @if (auth()->user()->name == $topics->user->name)
 
-                                                <small class="badge badge-light border border-dark">Posté le {{$topics->created_at->format('d/m/Y à H:s')}} par Moi</small> 
+                                                <small class="border border-light">Posté le {{$topics->created_at->format('d/m/Y à H:s')}} par Moi</small> 
                                                 
                                                 @else
 
-                                                <small class="badge badge-light border border-dark">Posté le {{$topics->created_at->format('d/m/Y à H:s')}} par : {{$topics->user->name}}</small> 
+                                                <small class="border border-light">Posté le {{$topics->created_at->format('d/m/Y à H:s')}} par : {{$topics->user->name}}</small> 
                                                 
                                                 @endif
                                                 
@@ -55,17 +53,24 @@
                     
                             <div class="ml-4">
                                
-                                <p>Seul l'auteur qui peut modifier le topic</p>
-                                    <div class="form-group d-flex justify-content-between">
-                                        @can('update',$topics)
-                                        <a href="{{route('topic.edit',[$topics->id])}}" class="btn btn-warning">Modifier</a>
-                                        @endcan
-                                      
-                                        @can('delete',$topics)
-                                        <a href="{{route('topic.destroy',[$topics->id])}}" class="btn btn-danger">Supprimer</a>
-                                        @endcan
+                                @if (auth()->user()->name==$topics->user->name)
 
-                                    </div>
+                                <p>Pour toute modification ou suppression d'un Topic </p>
+                                
+                                <div class="form-group d-flex justify-content-between">
+                                    @can('update',$topics)
+                                    <a href="{{route('topic.edit',[$topics->id])}}" class="btn btn-warning">Modifier</a>
+                                    @endcan
+                                    
+                                    @can('delete',$topics)
+                                    <a href="{{route('topic.destroy',[$topics->id])}}" class="btn btn-danger">Supprimer</a>
+                                    @endcan
+                                    
+                                </div>
+                                @else
+                                    <p>Seul l'auteur qui peut modifier le topic ou le supprimer</p>
+                                
+                                 @endif
                                     
                             </div>
                         </div>
@@ -84,7 +89,6 @@
                                                                                
                                         <div class="form-group">
         
-                                            {{-- <label class="label" for="name">Votre Commentaire</label> --}}
                                             <textarea rows="6" id="content" class="form-control @error('content') is-invalid @enderror" name="content" aria-label="With textarea"></textarea>
                                             @error('content')
                                                 <div class="invalid-feedback">{{$errors->first('content')}}</div>
@@ -92,7 +96,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group d-flex justify-content-end mt-4">
-                                            <button type="submit" class="btn btn-success submit">Commenter <span class="fa fa-paper-plane"></span></button>
+                                            <button type="submit" class="btn btn-info submit">Commenter <span class="fa fa-paper-plane"></span></button>
                                         </div>
                                     </form>
                                 </div>
@@ -109,31 +113,51 @@
                                 <div class="mt-2 text-sm text-gray-500">
                                     @forelse($comments as $comment)
                                     <div class="card md-1 contenu-blanc-avec-scroll">
-                                        <div class="card-body">
-                                            {{$comment->content}}
-                                            <div class="d-flex justify-content-between align-item-center">   
-                                                @if (auth()->user()->name == $comment->user->name)
-                                                
-                                                <small class="badge badge-light border border-light">Posté le {{$comment->created_at->format('d/m/Y à H:s')}} par Moi</small> 
-                                                
+                                        <div class="card-body d-flex justify-content-between">
+                                            <div> 
+                                                {{$comment->content}}
+                                                <div class="d-flex justify-content-between align-item-center">   
+                                                    @if (auth()->user()->name == $comment->user->name)
+                                                    
+                                                    <small >Posté le {{$comment->created_at->format('d/m/Y à H:s')}} par Moi</small> 
+                                                    
+                                                    @else
+                                                    
+                                                    <small >posté le {{$comment->created_at->format('d/m/Y à H:s')}} par : {{$comment->user->name}}</small> 
+                                                    
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div>
+                                                @if (!$topics->solution && auth()->user())
+
+                                                    @can('update',$topics)
+                                                    
+                                                        <form action="{{route('comment.markAsSolution',[$comment->id, $topics->id] )}}" method="post">
+                                                            <button id="marquer" class="btn btn-success"> Marqué</button>
+                                                        </form>
+                                                    @endcan
                                                 @else
-                                                
-                                                <small class="badge badge-light border border-light">posté le {{$comment->created_at->format('d/m/Y à H:s')}} par : {{$comment->user->name}}</small> 
+                                                        @if ($topics->solution==$comment->id)
+                                                        <span class="badge badge-success"><i class="fas fa-lock"> Solution</i></span>
+                                                        @endif
                                                 
                                                 @endif
-                                            </div> 
+                                               
+                                            </div>
                                         </div>
                                         
-                                       
-                                        <button class="btn btn-info" onclick="toggleReplyComment({{$comment->id }})">Répondre</button>
-                                        <button class="btn btn-dark" onclick="toggleSeeComment({{$comment->id }})">Afficher les réponses du commentaire</button>
+                                        <div class="form-group d-flex justify-content-between align-item-center">
+                                          
+                                            <button class="btn btn-dark" onclick="toggleSeeComment({{$comment->id }})">Afficher les réponses du commentaire</button>
+                                            <button class="btn btn-info" onclick="toggleReplyComment({{$comment->id }})">Répondre</button>
+                                        </div>
                                     </div>
                                     
                                     <div class="card-body ml-8 d-none alert alert-dark" role="alert" id="SeeComment-{{$comment->id }}">
                                         @foreach ($comment->comments as $replyComment )
                                             {{$replyComment->content}}
                                             <div class="d-flex justify-content-between align-item-center " >  
-                                                {{-- <small class="badge badge-light border border-light">posté le {{$replyComment->created_at->format('d/m/Y à H:s')}} par : {{$replyComment->user->name}}</small>  --}}
                                                 
                                                 @if (auth()->user()->name == $replyComment->user->name)
 
@@ -172,6 +196,7 @@
             </div>
         </div>
     </div>
+</x-app-layout>
     <script>
         function toggleReplyComment(id)
         {
@@ -186,4 +211,3 @@
             element.classList.toggle('d-none'); 
         }
     </script>
-    </x-app-layout>
